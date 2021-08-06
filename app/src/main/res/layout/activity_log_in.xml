@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/cuddle_fl"
+    android:background="@drawable/cuddle_fl1"
     android:forceDarkAllowed="false"
     tools:context=".LogInActivity">
 
@@ -15,7 +15,7 @@
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="200dp"
         android:layout_marginBottom="30dp"
         android:typeface="monospace"
         android:textAlignment="center"
@@ -130,15 +130,29 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/submitOtpBtn"
+            android:id="@+id/submitBtn"
             android:text="Login"
             android:backgroundTint="#F58029"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:enabled="true"
             android:layout_gravity="center_horizontal"
             android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/signin_google_btn"
+            android:text="Login with google"
+            android:background="@drawable/custom_bordered_ripple"
+            android:layout_margin="5dp"
+            android:enabled="true"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/google_icon"/>
+
+
 
 
     </LinearLayout>
