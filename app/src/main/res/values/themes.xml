@@ -14,7 +14,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:windowBackground">@android:color/white</item>
         <!--  Status bar color.  -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/purple_700</item>
         <!--  Customize your theme here.  -->
         <item name="actionModeBackground">@color/item_selecter_color</item>
         <item name="android:textColor">@android:color/black</item>
