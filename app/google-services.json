@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "278997290591",
+    "project_id": "cuddle-app-b58fe",
+    "storage_bucket": "cuddle-app-b58fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278997290591:android:342612d62f92aa985515ea",
+        "android_client_info": {
+          "package_name": "com.bitaam.cuddle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278997290591-4qlrk86jk6dg2212hvrl5qo2tn5c6mag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZsE8JzuGYJkaYuRtQa9SR9ef9jtSedsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278997290591-4qlrk86jk6dg2212hvrl5qo2tn5c6mag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
