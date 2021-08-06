@@ -4,23 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/cuddle_fl"
+    android:background="@drawable/cuddle_fl1"
     android:forceDarkAllowed="false"
     tools:context=".LogInActivity">
 
 
     <TextView
         android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="30dp"
         android:text="Welcome"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginTop="170dp"
-        android:layout_marginBottom="30dp"
-        android:typeface="monospace"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:typeface="monospace" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameInput"
@@ -77,10 +77,10 @@
         app:endIconTint="@android:color/white"
         app:startIconTint="@android:color/white"
         android:layout_below="@+id/nameInput"
-        app:startIconDrawable="@drawable/ic_baseline_local_phone_24">
+        app:startIconDrawable="@drawable/ic_email_black_24dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/phone_input"
+            android:id="@+id/email_input"
             android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,14 +89,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/otpInput"
+        android:id="@+id/pass_input"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
-        android:enabled="false"
+        android:enabled="true"
         android:hint="Enter password"
         app:boxCornerRadiusBottomEnd="14dp"
         android:padding="5dp"
@@ -122,23 +122,25 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/otpInput"
-        android:padding="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pass_input"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/teal_200"
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <Button
             android:id="@+id/submitOtpBtn"
-            android:text="Login"
-            android:backgroundTint="#F58029"
-            android:layout_margin="10dp"
-            android:enabled="true"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:background="@drawable/background"
+
+            android:enabled="true"
+            android:text="Login"
+            android:textColor="@android:color/white" />
 
 
     </LinearLayout>
