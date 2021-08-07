@@ -1,0 +1,19 @@
+[33m7fce198[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{0}: checkout: moving from 286de092c5e1de4a85a355c9c2b3693cf179854d to master
+[33m286de09[m[33m ([m[1;31morigin/master[m[33m)[m HEAD@{1}: checkout: moving from master to 286de09
+[33m7fce198[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{2}: commit: trash commit
+[33m286de09[m[33m ([m[1;31morigin/master[m[33m)[m HEAD@{3}: merge origin/master: Fast-forward
+[33m51416d9[m HEAD@{4}: commit: background improved and added signUp UI
+[33m7b1ac71[m HEAD@{5}: commit (merge): Merge remote-tracking branch 'origin/master'
+[33m213f3e4[m HEAD@{6}: reset: moving to HEAD
+[33m213f3e4[m HEAD@{7}: commit (merge): Merge branch 'master' of https://github.com/AmanKothari20/codeUntil50
+[33m9111bf7[m HEAD@{8}: commit: trash
+[33m8d0a5c1[m HEAD@{9}: reset: moving to HEAD
+[33m8d0a5c1[m HEAD@{10}: commit: connected firebase
+[33m07a336d[m HEAD@{11}: commit: added activities
+[33mc44f68d[m HEAD@{12}: revert: Revert "trial"
+[33m53345c0[m HEAD@{13}: checkout: moving from 53345c0db6d2aa2e5c5a213d95aab0ac12c92154 to master
+[33m53345c0[m HEAD@{14}: checkout: moving from master to 53345c0
+[33m53345c0[m HEAD@{15}: checkout: moving from 53345c0db6d2aa2e5c5a213d95aab0ac12c92154 to master
+[33m53345c0[m HEAD@{16}: checkout: moving from master to 53345c0
+[33m53345c0[m HEAD@{17}: commit: trial
+[33mb306f87[m HEAD@{18}: commit (initial): started project

@@ -73,8 +73,15 @@ public class LogInActivity extends AppCompatActivity {
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialogShow("Signing In","Please wait..");
-                loginEmailPassword();
+                if(signInBtn.getText().toString().equals("Sign Up")){
+                    progressDialogShow("Creating User","Please wait..");
+                    signUp();
+
+                }
+                else{
+                    progressDialogShow("Signing In","Please wait..");
+                    loginEmailPassword();
+                }
             }
         });
 
@@ -90,11 +97,68 @@ public class LogInActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
-                finish();
+                if(signUpBtn.getText().toString().equals("Create Account")){
+                    signInBtn.setText("Sign Up");
+                    signUpBtn.setText("Log In");
+                }
+                else{
+                    signInBtn.setText("LOG IN");
+                }
+
             }
         });
 
+    }
+
+    private void signUp() {
+        String useremail = Objects.requireNonNull(emailEdt.getText()).toString().trim();
+        String userpassword = Objects.requireNonNull(passwordEdt.getText()).toString().trim();
+
+        if(useremail.isEmpty()){
+            emailEdt.setError("Enter email");
+            emailEdt.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(useremail).matches()){
+            emailEdt.setError("Please enter valid email");
+            emailEdt.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }
+
+        if(userpassword.isEmpty()){
+
+            passwordEdt.setError("Password is Empty");
+            passwordEdt.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }
+        if(userpassword.length()<6){
+            passwordEdt.setError("Minimum length is 6");
+            passwordEdt.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(useremail,userpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+
+                    progressDialog.dismiss();
+                    Intent intent = new Intent(getApplicationContext(),CreateProfileActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                    emailEdt.requestFocus();
+                    progressDialog.dismiss();
+                }
+            }
+        });
     }
 
     private void loginEmailPassword() {
