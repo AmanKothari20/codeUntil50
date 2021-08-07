@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.InterestedFragment">
+    tools:context=".ui.FeedFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarInterested"
+        android:id="@+id/toolbarHome"
         app:title="Feeds"
         android:background="?attr/colorPrimaryVariant"
         app:titleTextColor="@android:color/white"
@@ -18,7 +17,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/upcharRecycler"
-        android:layout_below="@id/toolbarInterested"
+        android:layout_below="@id/toolbarHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>
