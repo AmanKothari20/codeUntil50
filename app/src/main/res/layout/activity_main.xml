@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cuddle_fl"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/LogoutBtn"
-        android:text="Logout"
-        android:backgroundTint="@android:color/transparent"
-        android:background="@drawable/background"
-        android:layout_centerInParent="true"
-        android:enabled="true"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarHome"
+        app:title="@string/app_name"
+        android:background="?attr/colorPrimaryVariant"
+        app:titleTextColor="@android:color/white"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-</RelativeLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:layout_below="@id/toolbarHome"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        app:defaultNavHost="true" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
