@@ -2,6 +2,8 @@
     <string name="app_name">Cuddle</string>
     <string name="oauth_client">278997290591-4qlrk86jk6dg2212hvrl5qo2tn5c6mag.apps.googleusercontent.com</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="profile_demo_url">https://firebasestorage.googleapis.com/v0/b/cuddle-app-b58fe.appspot.com/o/DemoImages%2Fprofile_demo.jpg?alt=media&amp;token=837c87f9-3fc3-4107-9867-ef6b87431177</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_home">MainActivity</string>
+    <string name="choose_minimum_2_or_maximum_6_images">Choose minimum 2 or maximum 6 images</string>
 </resources>

@@ -44,14 +44,24 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/addImages"
-                android:src="@drawable/photo_selecter_icon"
+                android:src="@drawable/ic_baseline_add_24"
                 android:elevation="20dp"
-                android:padding="10dp"
+                android:padding="7dp"
                 android:layout_alignBottom="@id/carouselView"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="10dp"
                 android:background="@drawable/circular_bg_noborder"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/infoImgSelect"
+                android:text="@string/choose_minimum_2_or_maximum_6_images"
+                android:layout_below="@id/carouselView"
+                android:textColor="@color/teal_200"
+                android:paddingStart="10dp"
+                android:textSize="14sp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -72,12 +82,12 @@
                 app:hintTextColor="@color/teal_200"
                 app:endIconTint="@android:color/black"
                 app:startIconTint="@android:color/black"
-                android:layout_below="@+id/carouselView"
+                android:layout_below="@+id/infoImgSelect"
                 app:startIconDrawable="@drawable/ic_baseline_perm_identity_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name_input"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -106,7 +116,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/age_input"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="2"
@@ -136,23 +146,26 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/bio_input"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="2"
-                    android:inputType="number" />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/genderInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 app:boxStrokeColor="@color/teal_200"
                 app:hintTextColor="@color/teal_200"
-                app:startIconTint="@android:color/black"
+                android:textColorHint="@color/black"
+                app:boxCornerRadiusBottomEnd="14dp"
+                android:padding="5dp"
+                android:background="@color/white"
+                app:startIconTint="@color/black"
+                app:endIconTint="@color/black"
                 android:layout_below="@+id/bioInput"
-                android:backgroundTint="@color/white"
-                app:startIconDrawable="@drawable/bio_icon"
+                app:startIconDrawable="@drawable/gender_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Gender"
@@ -160,11 +173,117 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/filled_exposed_dropdown"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"/>
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/hobby1Input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:boxStrokeColor="@color/teal_200"
+                app:hintTextColor="@color/teal_200"
+                android:textColorHint="@color/black"
+                app:boxCornerRadiusBottomEnd="14dp"
+                android:padding="5dp"
+                android:background="@color/white"
+                app:startIconTint="@color/black"
+                app:endIconTint="@color/black"
+                android:layout_below="@+id/genderInput"
+                app:startIconDrawable="@drawable/hobby_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hobby 1"
+                android:orientation="horizontal">
+
+                <AutoCompleteTextView
+                    android:id="@+id/hobby1_input"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/hobby2Input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:boxStrokeColor="@color/teal_200"
+                app:hintTextColor="@color/teal_200"
+                android:textColorHint="@color/black"
+                app:boxCornerRadiusBottomEnd="14dp"
+                android:padding="5dp"
+                android:background="@color/white"
+                app:startIconTint="@color/black"
+                app:endIconTint="@color/black"
+                android:layout_below="@+id/hobby1Input"
+                app:startIconDrawable="@drawable/hobby_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hobby 2"
+                android:orientation="horizontal">
+
+                <AutoCompleteTextView
+                    android:id="@+id/hobby2_input"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/hobby3Input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:boxStrokeColor="@color/teal_200"
+                app:hintTextColor="@color/teal_200"
+                android:textColorHint="@color/black"
+                app:boxCornerRadiusBottomEnd="14dp"
+                android:padding="5dp"
+                android:background="@color/white"
+                app:startIconTint="@color/black"
+                app:endIconTint="@color/black"
+                android:layout_below="@+id/hobby2Input"
+                app:startIconDrawable="@drawable/hobby_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hobby 3"
+                android:orientation="horizontal">
+
+                <AutoCompleteTextView
+                    android:id="@+id/hobby3_input"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/addLocationBtn"
+                android:layout_margin="5dp"
+                android:backgroundTint="@android:color/transparent"
+                android:text="Add your location"
+                android:textColor="@color/black"
+                android:drawableEnd="@drawable/ic_baseline_add_location_alt_24"
+                android:drawableTint="@color/black"
+                android:layout_below="@id/hobby3Input"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/submitBtn"
+                android:layout_margin="5dp"
+                android:text="Submit"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/black"
+                android:layout_below="@id/addLocationBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
 
         </RelativeLayout>
 
