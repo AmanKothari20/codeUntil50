@@ -15,9 +15,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <Spinner
+        android:id="@+id/feed_type_spinner"
+        android:elevation="10dp"
+        android:background="@drawable/spinner_bg"
+        android:spinnerMode="dialog"
+        android:popupBackground="@android:color/white"
+        android:padding="2dp"
+        android:layout_below="@id/toolbarHome"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="30dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/upcharRecycler"
-        android:layout_below="@id/toolbarHome"
+        android:layout_below="@id/feed_type_spinner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>

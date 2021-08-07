@@ -9,7 +9,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarInterested"
-        app:title="Feeds"
+        app:title="Interested"
         android:background="?attr/colorPrimaryVariant"
         app:titleTextColor="@android:color/white"
         android:layout_alignParentTop="true"
