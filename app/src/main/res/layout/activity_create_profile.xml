@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarCreateProfile"
         app:title="Create Profile"
-        android:background="?attr/colorPrimaryVariant"
+        android:background="@color/toolbar_dark"
         app:titleTextColor="@android:color/white"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"

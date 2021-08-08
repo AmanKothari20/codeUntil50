@@ -5,9 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
@@ -26,12 +25,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
-import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -54,6 +54,8 @@ public class CreateProfileActivity extends AppCompatActivity {
     byte[] filesInBytes;
     ArrayList<Uri> imgUriList;
     Bitmap qImg;
+    int imgPos= 0;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,12 +118,20 @@ public class CreateProfileActivity extends AppCompatActivity {
         i5Tv = findViewById(R.id.addImage5Tv);
         i6Tv = findViewById(R.id.addImage6Tv);
 
+        boolean f1=false,f2=false,f3=false,f4=false,f5=false,f6=false;
+
         i1Tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent,1000);
-                i2Tv.setEnabled(true);
+                imgPos = 0;
+                if (f1){
+                    imageView.setImageBitmap(selectedImagesBitmaps.get(imgPos));
+                }else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent,1000);
+                    i2Tv.setEnabled(true);
+                    imgPos=0;
+                }
             }
         });
 
@@ -131,6 +141,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent,1000);
                 i3Tv.setEnabled(true);
+                imgPos=1;
             }
         });
 
@@ -140,6 +151,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent,1000);
                 i4Tv.setEnabled(true);
+                imgPos=2;
             }
         });
 
@@ -149,6 +161,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent,1000);
                 i5Tv.setEnabled(true);
+                imgPos=3;
             }
         });
 
@@ -158,6 +171,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent,1000);
                 i6Tv.setEnabled(true);
+                imgPos=4;
             }
         });
 
@@ -166,6 +180,14 @@ public class CreateProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent,1000);
+                imgPos=5;
+            }
+        });
+
+        rotateImgCiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedImagesBitmaps.add(imgPos,rotateImage(selectedImagesBitmaps.get(imgPos),90));
             }
         });
 
@@ -174,55 +196,17 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     private void getData() {
+        progressDialogShow("Creating Profile","Uploading images and information");
 
-        ProfileModal modal = new ProfileModal();
 
-        String name,age,bio,hobby1,hobby2,hobby3,location,gender,imgUrl1,imgUrl2,imgUrl3,imgUrl4,imgUrl5,imgUrl6;
-
-        name = Objects.requireNonNull(nameEdt.getText()).toString();
-        age = Objects.requireNonNull(ageEdt.getText()).toString();
-        bio = Objects.requireNonNull(bioEdt.getText()).toString();
-        gender = Objects.requireNonNull(genderExposedDropdown.getText()).toString();
-        hobby1 = Objects.requireNonNull(hobby1ExposedDropdown.getText()).toString();
-        hobby2 = Objects.requireNonNull(hobby2ExposedDropdown.getText()).toString();
-        hobby3 = Objects.requireNonNull(hobby3ExposedDropdown.getText()).toString();
-
-        if (name.isEmpty()){
-            nameEdt.setError("Enter name");
-            nameEdt.requestFocus();
+        if (selectedImagesBitmaps.size()<2){
+            Toast.makeText(this, "Select at least two images", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
             return;
         }
-        if (age.isEmpty()){
-            ageEdt.setError("Enter age");
-            ageEdt.requestFocus();
-            return;
+        for (int i=0;i<selectedImagesBitmaps.size();i++){
+            uploadImageToFirebase(compressImg(selectedImagesBitmaps.get(i)));
         }
-        if (bio.isEmpty()){
-            bioEdt.setError("Enter bio");
-            bioEdt.requestFocus();
-            return;
-        }
-        if (gender.isEmpty()){
-            genderExposedDropdown.setError("Enter gender");
-            genderExposedDropdown.requestFocus();
-            return;
-        }
-        if (hobby1.isEmpty()){
-            hobby1ExposedDropdown.setError("Enter 1st hobby");
-            hobby1ExposedDropdown.requestFocus();
-            return;
-        }
-        if (hobby2.isEmpty()){
-            hobby2ExposedDropdown.setError("Enter 2nd hobby");
-            hobby2ExposedDropdown.requestFocus();
-            return;
-        }
-        if (hobby3.isEmpty()){
-            hobby3ExposedDropdown.setError("Enter 3rd hobby");
-            hobby3ExposedDropdown.requestFocus();
-            return;
-        }
-
 
 
     }
@@ -239,10 +223,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                     bmp = MediaStore.Images.Media.getBitmap(getContentResolver(),imgUri);
                     qImg = bmp;
                 }catch (Exception e){}
-//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                bmp.compress(Bitmap.CompressFormat.JPEG,25,baos);
-//                byte[] fileInBytes = baos.toByteArray();
-                filesInBytes = compressImg(qImg);
+
                 rotateImgCiv.setVisibility(View.VISIBLE);
                 imageView.setImageBitmap(qImg);
 
@@ -255,8 +236,6 @@ public class CreateProfileActivity extends AppCompatActivity {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
         Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
-        filesInBytes = null;
-        filesInBytes = compressImg(rotatedImg);
         imageView.setImageBitmap(rotatedImg);
         return rotatedImg;
     }
@@ -283,7 +262,9 @@ public class CreateProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         profileImgUrls.add(uri.toString());
-                        //postQuestion();
+                        if (profileImgUrls.size() == selectedImagesBitmaps.size()){
+                            updateData();
+                        }
                     }
                 });
             }
@@ -291,8 +272,153 @@ public class CreateProfileActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(),"Some error occurred while uploading image ,try again !",Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
+    }
+
+    private void updateData() {
+
+        ProfileModal modal = new ProfileModal();
+        String authId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+        String poDat = new SimpleDateFormat("MMMM dd, yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
+        modal.setProfileDate(poDat);
+        modal.setLocation("Jaunpur");
+
+        String name,age,bio,hobby1,hobby2,hobby3,location,gender,imgUrl1="na",imgUrl2="na",imgUrl3="na",imgUrl4="na",imgUrl5="na",imgUrl6="na";
+
+        name = Objects.requireNonNull(nameEdt.getText()).toString();
+        age = Objects.requireNonNull(ageEdt.getText()).toString();
+        bio = Objects.requireNonNull(bioEdt.getText()).toString();
+        gender = Objects.requireNonNull(genderExposedDropdown.getText()).toString();
+        hobby1 = Objects.requireNonNull(hobby1ExposedDropdown.getText()).toString();
+        hobby2 = Objects.requireNonNull(hobby2ExposedDropdown.getText()).toString();
+        hobby3 = Objects.requireNonNull(hobby3ExposedDropdown.getText()).toString();
+
+        if (name.isEmpty()){
+            nameEdt.setError("Enter name");
+            nameEdt.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }else {
+            modal.setName(name);
+        }
+        if (age.isEmpty()){
+            ageEdt.setError("Enter age");
+            ageEdt.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }else {
+            modal.setAge(age);
+        }
+        if (bio.isEmpty()){
+            bioEdt.setError("Enter bio");
+            bioEdt.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }else {
+            modal.setBio(bio);
+        }
+        if (gender.isEmpty()){
+            genderExposedDropdown.setError("Enter gender");
+            genderExposedDropdown.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }else {
+            modal.setGender(gender);
+        }
+        if (hobby1.isEmpty()){
+            hobby1ExposedDropdown.setError("Enter 1st hobby");
+            hobby1ExposedDropdown.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }else {
+            modal.setHobby1(hobby1);
+        }
+        if (hobby2.isEmpty()){
+            hobby2ExposedDropdown.setError("Enter 2nd hobby");
+            hobby2ExposedDropdown.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }else {
+            modal.setHobby2(hobby2);
+        }
+        if (hobby3.isEmpty()){
+            hobby3ExposedDropdown.setError("Enter 3rd hobby");
+            hobby3ExposedDropdown.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }else {
+            modal.setHobby3(hobby3);
+        }
+
+        for (int i=0;i<profileImgUrls.size();i++){
+            switch (i){
+                case 0:
+                    imgUrl1 = profileImgUrls.get(i);
+                    modal.setImgUrl1(imgUrl1);
+                    break;
+                case 1:
+                    imgUrl2 = profileImgUrls.get(i);
+                    modal.setImgUrl2(imgUrl2);
+                    break;
+                case 2:
+                    imgUrl3 = profileImgUrls.get(i);
+                    modal.setImgUrl3(imgUrl3);
+                    break;
+                case 3:
+                    imgUrl4 = profileImgUrls.get(i);
+                    modal.setImgUrl4(imgUrl4);
+                    break;
+                case 4:
+                    imgUrl5 = profileImgUrls.get(i);
+                    modal.setImgUrl5(imgUrl5);
+                    break;
+                case 5:
+                    imgUrl6 = profileImgUrls.get(i);
+                    modal.setImgUrl6(imgUrl6);
+                    break;
+
+            }
+            if (i == profileImgUrls.size()-1){
+                uploadToDatabase(modal,authId);
+            }
+        }
+
+    }
+
+    private void uploadToDatabase(ProfileModal modal,String key) {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Profiles");
+
+        databaseReference.child(key).setValue(modal).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                progressDialog.dismiss();
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(CreateProfileActivity.this, "Some error occurred try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void progressDialogShow(String title,String Msg){
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle(title);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage(Msg);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //progressDialog.setMax(100);
+        progressDialog.show();
+
     }
 
 }

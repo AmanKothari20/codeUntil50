@@ -4,9 +4,17 @@ import java.io.Serializable;
 
 public class ProfileModal implements Serializable {
 
-    String name,age,bio,hobby1,hobby2,hobby3,location,gender,imgUrl1,imgUrl2,imgUrl3,imgUrl4,imgUrl5,imgUrl6;
+    String name,age,bio,hobby1,hobby2,hobby3,location,gender,imgUrl1,imgUrl2,imgUrl3,imgUrl4,imgUrl5,imgUrl6,profileDate;
 
     public ProfileModal() {
+    }
+
+    public String getProfileDate() {
+        return profileDate;
+    }
+
+    public void setProfileDate(String profileDate) {
+        this.profileDate = profileDate;
     }
 
     public String getName() {
