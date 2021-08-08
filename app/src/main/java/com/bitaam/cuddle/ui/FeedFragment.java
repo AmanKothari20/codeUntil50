@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FeedFragment extends Fragment {
 
@@ -76,20 +77,26 @@ public class FeedFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        databaseActivities();
+    }
+
     private void databaseActivities(){
 
-        feedAdapter = new FeedAdapter(profileModals,getContext(),feedRecyclerView);
+        feedAdapter = new FeedAdapter(new ArrayList<>(),getContext(),feedRecyclerView);
         feedRecyclerView.setAdapter(feedAdapter);
 
         feedAdapter.setOnItemClickListener(new FeedAdapter.OnItemClickListener() {
             @Override
-            public void onLiked(ProfileModal model) {
-
+            public void onLiked(ProfileModal model,int pos) {
+                onProfileLiked(model,pos);
             }
 
             @Override
-            public void onDisliked(ProfileModal model) {
-
+            public void onDisliked(ProfileModal model,int pos) {
+                onProfileDisliked(model,pos);
             }
         });
 
@@ -100,6 +107,7 @@ public class FeedFragment extends Fragment {
                 ProfileModal modal = snapshot.getValue(ProfileModal.class);
                 profileModals.add(modal);
                 profileKeys.add(snapshot.getKey());
+                ((FeedAdapter) Objects.requireNonNull(feedRecyclerView.getAdapter())).update(modal);
             }
 
             @Override
@@ -125,33 +133,45 @@ public class FeedFragment extends Fragment {
 
     }
 
+    private void onProfileDisliked(ProfileModal model, int pos) {
+    }
+
+    private void onProfileLiked(ProfileModal model, int pos) {
+
+
+
+    }
+
     private void spinnerInit() {
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(),R.array.feedTypes,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner1.setAdapter(adapter);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(requireContext(),R.array.feedTypes,android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner1.setAdapter(adapter1);
 
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ArrayAdapter<CharSequence> adapter1;
+                ArrayAdapter<CharSequence> adapter2;
                 switch (parent.getItemAtPosition(position).toString()){
 
                     case "Age":
-                        adapter1 = ArrayAdapter.createFromResource(requireContext(),R.array.ageRange,android.R.layout.simple_spinner_item);
-                        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        adapter2 = ArrayAdapter.createFromResource(requireContext(),R.array.ageRange,android.R.layout.simple_spinner_item);
+                        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner2.setAdapter(adapter2);
                         break;
                     case "Gender":
-                        adapter1 = ArrayAdapter.createFromResource(requireContext(),R.array.gender,android.R.layout.simple_spinner_item);
-                        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        adapter2 = ArrayAdapter.createFromResource(requireContext(),R.array.gender,android.R.layout.simple_spinner_item);
+                        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner2.setAdapter(adapter2);
                         break;
                     case "Distance Radius":
-                        adapter1 = ArrayAdapter.createFromResource(requireContext(),R.array.distanceRadius,android.R.layout.simple_spinner_item);
-                        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        adapter2 = ArrayAdapter.createFromResource(requireContext(),R.array.distanceRadius,android.R.layout.simple_spinner_item);
+                        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner2.setAdapter(adapter2);
                         break;
 
                 }
-                spinner2.setAdapter(adapter);
+
 
             }
 

@@ -9,8 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarHome"
         app:title="Feeds"
-        android:background="@color/toolbar_dark"
-        app:titleTextColor="@android:color/white"
+        android:background="?attr/colorPrimaryVariant"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

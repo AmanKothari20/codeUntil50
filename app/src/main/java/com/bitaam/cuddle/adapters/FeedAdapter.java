@@ -30,8 +30,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     OnItemClickListener mListener;
 
     public  interface OnItemClickListener{
-        void onLiked(ProfileModal model);
-        void onDisliked(ProfileModal model);
+        void onLiked(ProfileModal model,int pos);
+        void onDisliked(ProfileModal model,int pos);
     }
 
     public  void setOnItemClickListener(OnItemClickListener listener){
@@ -63,15 +63,13 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         viewHolder.likeTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onLiked(modal);
-                viewHolder.likeTv.setText((Integer.parseInt(viewHolder.likeTv.getText().toString())+1));
+                mListener.onLiked(modal,position);
             }
         });
         viewHolder.dislikeTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onDisliked(modal);
-                viewHolder.dislikeTv.setText((Integer.parseInt(viewHolder.dislikeTv.getText().toString())+1));
+                mListener.onDisliked(modal,position);
             }
         });
 

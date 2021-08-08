@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="5dp"
     app:cardCornerRadius="5dp"
+    android:layout_margin="3dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -36,9 +36,8 @@
             android:padding="2dp"
             android:textSize="16sp"
             android:gravity="center_horizontal"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSecondary"
             android:drawableTop="@drawable/ic_baseline_thumb_down_24"
-            android:drawableTint="@color/black"
             android:layout_above="@id/likeFeedTv"            android:layout_alignParentEnd="true"
             android:layout_margin="5dp"
             android:background="@drawable/custom_bordered_ripple"
@@ -48,12 +47,11 @@
         <TextView
             android:id="@+id/likeFeedTv"
             android:text="0"
+            android:textColor="?attr/colorOnSecondary"
             android:padding="2dp"
             android:textSize="16sp"
             android:gravity="center_horizontal"
-            android:textColor="@color/black"
             android:drawableTop="@drawable/ic_baseline_thumb_up_24"
-            android:drawableTint="@color/black"
             android:layout_alignBottom="@id/feedImageView"
             android:layout_alignParentEnd="true"
             android:layout_margin="5dp"
