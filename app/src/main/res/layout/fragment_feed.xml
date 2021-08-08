@@ -15,32 +15,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <Spinner
-        android:id="@+id/feed_type_spinner"
-        android:elevation="0dp"
-        android:background="@drawable/spinner_bg"
-        android:spinnerMode="dialog"
-        android:popupBackground="@android:color/white"
-        android:padding="2dp"
+    <LinearLayout
+        android:id="@+id/spinnerLl"
         android:layout_below="@id/toolbarHome"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="37dp"/>
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:id="@+id/feed_type_spinner"
+            android:elevation="0dp"
+            android:background="@drawable/spinner_bg"
+            android:spinnerMode="dialog"
+            android:popupBackground="@android:color/white"
+            android:padding="2dp"
+            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="37dp"/>
+
+        <Spinner
+            android:id="@+id/feed_type_data_spinner"
+            android:elevation="0dp"
+            android:background="@drawable/spinner_bg"
+            android:spinnerMode="dialog"
+            android:popupBackground="@android:color/white"
+            android:padding="2dp"
+            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="37dp"/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/upcharRecycler"
-        android:layout_below="@id/feed_type_spinner"
+        android:id="@+id/feedRecycler"
+        android:layout_below="@id/spinnerLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>
 
-    <Button
-        android:id="@+id/testBtn"
-        android:text="Test UI"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

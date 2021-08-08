@@ -46,7 +46,7 @@ public class CreateProfileActivity extends AppCompatActivity {
 
     AutoCompleteTextView genderExposedDropdown,hobby1ExposedDropdown,hobby2ExposedDropdown,hobby3ExposedDropdown;
     TextInputEditText bioEdt,nameEdt,ageEdt;
-    CircleImageView rotateImgCiv;
+    CircleImageView rotateImgCiv,changeImgCiv;
     ImageView imageView;
     Button submitBtn,addLocationBtn;
     ArrayList<String> profileImgUrls;
@@ -89,6 +89,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         addLocationBtn = findViewById(R.id.addLocationBtn);
         imageView = findViewById(R.id.profImgView);
         rotateImgCiv = findViewById(R.id.rotateImgView);
+        changeImgCiv = findViewById(R.id.changeImgView);
 
         onClickActivities();
 
@@ -118,19 +119,24 @@ public class CreateProfileActivity extends AppCompatActivity {
         i5Tv = findViewById(R.id.addImage5Tv);
         i6Tv = findViewById(R.id.addImage6Tv);
 
-        boolean f1=false,f2=false,f3=false,f4=false,f5=false,f6=false;
+        final boolean[] f1 = {false};
+        final boolean[] f2 = {false};
+        final boolean[] f3 = {false};
+        final boolean[] f4 = {false};
+        final boolean[] f5 = {false};
+        final boolean[] f6 = {false};
 
         i1Tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imgPos = 0;
-                if (f1){
+                if (f1[0]){
                     imageView.setImageBitmap(selectedImagesBitmaps.get(imgPos));
                 }else {
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(intent,1000);
                     i2Tv.setEnabled(true);
-                    imgPos=0;
+                    f1[0] = true;
                 }
             }
         });
@@ -138,49 +144,74 @@ public class CreateProfileActivity extends AppCompatActivity {
         i2Tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent,1000);
-                i3Tv.setEnabled(true);
-                imgPos=1;
+                imgPos = 1;
+                if (f2[0]){
+                    imageView.setImageBitmap(selectedImagesBitmaps.get(imgPos));
+                }else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent,1000);
+                    i3Tv.setEnabled(true);
+                    f2[0] = true;
+                }
             }
         });
 
         i3Tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent,1000);
-                i4Tv.setEnabled(true);
-                imgPos=2;
+                imgPos = 2;
+                if (f3[0]){
+                    imageView.setImageBitmap(selectedImagesBitmaps.get(imgPos));
+                }else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent,1000);
+                    i4Tv.setEnabled(true);
+                    f3[0] = true;
+                }
             }
         });
 
         i4Tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent,1000);
-                i5Tv.setEnabled(true);
-                imgPos=3;
+                imgPos = 3;
+                if (f4[0]){
+                    imageView.setImageBitmap(selectedImagesBitmaps.get(imgPos));
+                }else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent,1000);
+                    i5Tv.setEnabled(true);
+                    f4[0] = true;
+                }
             }
         });
 
         i5Tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent,1000);
-                i6Tv.setEnabled(true);
-                imgPos=4;
+                imgPos = 4;
+                if (f5[0]){
+                    imageView.setImageBitmap(selectedImagesBitmaps.get(imgPos));
+                }else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent,1000);
+                    i6Tv.setEnabled(true);
+                    f5[0] = true;
+                }
             }
         });
 
         i6Tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent,1000);
-                imgPos=5;
+                imgPos = 5;
+                if (f6[0]){
+                    imageView.setImageBitmap(selectedImagesBitmaps.get(imgPos));
+                }else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent,1000);
+                    f6[0] = true;
+                }
             }
         });
 
@@ -191,7 +222,13 @@ public class CreateProfileActivity extends AppCompatActivity {
             }
         });
 
-
+        changeImgCiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent,1000);
+            }
+        });
 
     }
 
@@ -199,13 +236,13 @@ public class CreateProfileActivity extends AppCompatActivity {
         progressDialogShow("Creating Profile","Uploading images and information");
 
 
-        if (selectedImagesBitmaps.size()<2){
-            Toast.makeText(this, "Select at least two images", Toast.LENGTH_SHORT).show();
+        if (selectedImagesBitmaps.size()<6){
+            Toast.makeText(this, "Select all six images", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
             return;
         }
-        for (int i=0;i<selectedImagesBitmaps.size();i++){
-            uploadImageToFirebase(compressImg(selectedImagesBitmaps.get(i)));
+        for (int i=0;i<6;i++){
+            uploadImageToFirebase(compressImg(selectedImagesBitmaps.get(i)),i+1);
         }
 
 
@@ -222,9 +259,11 @@ public class CreateProfileActivity extends AppCompatActivity {
                 try{
                     bmp = MediaStore.Images.Media.getBitmap(getContentResolver(),imgUri);
                     qImg = bmp;
+                    selectedImagesBitmaps.add(imgPos,bmp);
                 }catch (Exception e){}
 
                 rotateImgCiv.setVisibility(View.VISIBLE);
+                changeImgCiv.setVisibility(View.VISIBLE);
                 imageView.setImageBitmap(qImg);
 
                 //uploadImageToFirebase(fileInBytes);
@@ -248,21 +287,21 @@ public class CreateProfileActivity extends AppCompatActivity {
         return fileInBytes;
     }
 
-    private void uploadImageToFirebase(byte[] fileInBytes) {
+    private void uploadImageToFirebase(byte[] fileInBytes,int c) {
 
         //progressBar.setVisibility(View.VISIBLE);
 
-        String imgId = new SimpleDateFormat("MMMM dd, yyyy HH:mm:ss", Locale.getDefault()).format(new Date())+""+ FirebaseAuth.getInstance().getCurrentUser().getUid().toString()+".jpg";
+        String imgId = System.currentTimeMillis()+""+ FirebaseAuth.getInstance().getCurrentUser().getUid().toString()+".jpg";
         final StorageReference fileRef = FirebaseStorage.getInstance().getReference("Images").child(imgId);
         fileRef.putBytes(fileInBytes).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getApplicationContext(),"Image Uploaded",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),c+" Image Uploaded",Toast.LENGTH_SHORT).show();
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         profileImgUrls.add(uri.toString());
-                        if (profileImgUrls.size() == selectedImagesBitmaps.size()){
+                        if (c == 6){
                             updateData();
                         }
                     }
@@ -396,6 +435,7 @@ public class CreateProfileActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 progressDialog.dismiss();
+                Toast.makeText(CreateProfileActivity.this, "Profile Created Successfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 finish();
             }

@@ -6,4 +6,37 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_home">MainActivity</string>
     <string name="choose_minimum_2_or_maximum_6_images">Choose minimum 2 or maximum 6 images</string>
+
+    <string-array name="feedTypes">
+
+        <item>Age</item>
+        <item>Gender</item>
+        <item>Distance Radius</item>
+
+    </string-array>
+
+    <string-array name="ageRange">
+
+        <item>15-18</item>
+        <item>18-20</item>
+        <item>20-22</item>
+
+    </string-array>
+
+    <string-array name="gender">
+
+        <item>Male</item>
+        <item>Female</item>
+        <item>Others</item>
+
+    </string-array>
+
+    <string-array name="distanceRadius">
+
+        <item>Up to 20 Km</item>
+        <item>Up to 60 Km</item>
+        <item>Up to 100 Km</item>
+
+    </string-array>
+
 </resources>
