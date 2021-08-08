@@ -246,7 +246,7 @@ public class LogInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             progressDialog.dismiss();
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(),CreateProfileActivity.class));
                             finish();
                         } else {
                             progressDialog.dismiss();

@@ -18,10 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cuddle">
+        <activity android:name=".ChatActivity"></activity>
         <activity
             android:name=".ShowDetailActivity"
             android:label="@string/title_activity_show_detail"
-            android:theme="@style/Theme.Cuddle.NoActionBar"></activity>
+            android:theme="@style/Theme.Cuddle.NoActionBar" />
         <activity
             android:name=".FeedActivity"
             android:label="@string/title_activity_feed"

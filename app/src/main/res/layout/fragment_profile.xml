@@ -43,6 +43,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/editLayoutImgView"
+                android:visibility="visible"
+                android:layout_below="@id/profImgView"
+                android:src="@drawable/ic_baseline_edit_24"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="5dp"
+                android:elevation="10dp"
+                android:padding="7dp"
+                android:background="@drawable/circular_bg_noborder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
 
             <View
                 android:background="@color/teal_200"
@@ -164,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:enabled="true"
+                android:enabled="false"
                 android:hint="Enter Name"
                 app:boxCornerRadiusBottomEnd="14dp"
                 android:padding="5dp"
@@ -193,7 +206,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="true"
+                android:enabled="false"
                 android:hint="Enter age"
                 app:boxCornerRadiusBottomEnd="14dp"
                 android:padding="5dp"
@@ -223,7 +236,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="true"
+                android:enabled="false"
                 android:hint="Enter bio"
                 app:boxCornerRadiusBottomEnd="14dp"
                 android:padding="5dp"
@@ -254,6 +267,7 @@
                 android:textColorHint="@color/black"
                 app:boxCornerRadiusBottomEnd="14dp"
                 android:padding="5dp"
+                android:enabled="false"
                 android:background="@color/white"
                 app:startIconTint="@color/black"
                 app:endIconTint="@color/black"
@@ -281,6 +295,7 @@
                 android:textColorHint="@color/black"
                 app:boxCornerRadiusBottomEnd="14dp"
                 android:padding="5dp"
+                android:enabled="false"
                 android:background="@color/white"
                 app:startIconTint="@color/black"
                 app:endIconTint="@color/black"
@@ -308,6 +323,7 @@
                 android:textColorHint="@color/black"
                 app:boxCornerRadiusBottomEnd="14dp"
                 android:padding="5dp"
+                android:enabled="false"
                 android:background="@color/white"
                 app:startIconTint="@color/black"
                 app:endIconTint="@color/black"
@@ -335,6 +351,7 @@
                 android:textColorHint="@color/black"
                 app:boxCornerRadiusBottomEnd="14dp"
                 android:padding="5dp"
+                android:enabled="false"
                 android:background="@color/white"
                 app:startIconTint="@color/black"
                 app:endIconTint="@color/black"
@@ -357,6 +374,7 @@
             <Button
                 android:id="@+id/addLocationBtn"
                 android:layout_margin="5dp"
+                android:enabled="false"
                 android:backgroundTint="@android:color/transparent"
                 android:text="Add your location"
                 android:textColor="@color/black"
@@ -371,9 +389,21 @@
                 android:id="@+id/submitBtn"
                 android:layout_margin="5dp"
                 android:text="Submit"
+                android:enabled="false"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/black"
                 android:layout_below="@id/addLocationBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/logoutBtn"
+                android:layout_margin="5dp"
+                android:text="Logout"
+                android:enabled="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/black"
+                android:layout_below="@id/submitBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

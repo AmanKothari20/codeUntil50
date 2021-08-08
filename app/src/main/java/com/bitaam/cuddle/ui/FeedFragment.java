@@ -16,11 +16,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.bitaam.cuddle.CreateProfileActivity;
 import com.bitaam.cuddle.R;
 import com.bitaam.cuddle.adapters.FeedAdapter;
 import com.bitaam.cuddle.modals.ProfileModal;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -74,6 +77,7 @@ public class FeedFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
+
         return view;
     }
 
@@ -104,10 +108,17 @@ public class FeedFragment extends Fragment {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+                int likes=0,dislikes=0;
+                if (snapshot.hasChild("likedBy")){
+                    likes = (int) snapshot.child("dislikedBy").getChildrenCount();
+                }
+                if (snapshot.hasChild("likedBy")){
+                    dislikes = (int) snapshot.child("likedBy").getChildrenCount();
+                }
                 ProfileModal modal = snapshot.getValue(ProfileModal.class);
                 profileModals.add(modal);
                 profileKeys.add(snapshot.getKey());
-                ((FeedAdapter) Objects.requireNonNull(feedRecyclerView.getAdapter())).update(modal);
+                ((FeedAdapter) Objects.requireNonNull(feedRecyclerView.getAdapter())).update(modal,likes,dislikes);
             }
 
             @Override
@@ -134,13 +145,61 @@ public class FeedFragment extends Fragment {
     }
 
     private void onProfileDisliked(ProfileModal model, int pos) {
+        downvoting(profileKeys.get(pos));
     }
 
     private void onProfileLiked(ProfileModal model, int pos) {
 
-
+        upvoting(profileKeys.get(pos));
 
     }
+
+    private void upvoting(String pId) {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Profiles").child(pId).child("likedBy")
+                .child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
+
+
+        databaseReference.setValue("liked").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getContext(), "Liked ,Added to Interested", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+                Toast.makeText(getContext(), "Error Try again", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+    private void downvoting(String pId) {
+
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Profiles").child(pId).child("dislikedBy")
+                .child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
+
+
+        databaseReference.setValue("disliked").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getContext(), "Disliked feed", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+                Toast.makeText(getContext(), "Error Try again", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
 
     private void spinnerInit() {
 

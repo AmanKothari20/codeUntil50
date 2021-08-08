@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bitaam.cuddle.InterestedFeedActivity;
 import com.bitaam.cuddle.R;
 import com.bitaam.cuddle.modals.ProfileModal;
 import com.squareup.picasso.Picasso;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class InterestedFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     ArrayList<ProfileModal> profileModals;
     ArrayList<Integer> likesC;
@@ -29,18 +30,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     RecyclerView recyclerView;
 
-    OnItemClickListener mListener;
 
-    public  interface OnItemClickListener{
-        void onLiked(ProfileModal model,int pos);
-        void onDisliked(ProfileModal model,int pos);
-    }
-
-    public  void setOnItemClickListener(OnItemClickListener listener){
-        mListener = listener;
-    }
-
-    public FeedAdapter(ArrayList<ProfileModal> profileModals, Context context, RecyclerView recyclerView) {
+    public InterestedFeedAdapter(ArrayList<ProfileModal> profileModals, Context context, RecyclerView recyclerView) {
         this.profileModals = profileModals;
         this.context = context;
         this.recyclerView = recyclerView;
@@ -63,21 +54,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ViewHolder viewHolder = (ViewHolder)holder;
 
         viewHolder.profileNameTv.setText(modal.getName());
-        viewHolder.likeTv.setText(String.valueOf(likesC.get(position)));
-        viewHolder.dislikeTv.setText(String.valueOf(dislikesC.get(position)));
         Picasso.get().load(Uri.parse(modal.getImgUrl1())).into(viewHolder.profileImgView);
-        viewHolder.likeTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onLiked(modal,position);
-            }
-        });
-        viewHolder.dislikeTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onDisliked(modal,position);
-            }
-        });
+
 
     }
 
@@ -92,11 +70,9 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return profileModals.size();
     }
 
-    public void update(ProfileModal modal,int likes,int dislikes){
+    public void update(ProfileModal modal){
 
         profileModals.add(modal);
-        likesC.add(likes);
-        dislikesC.add(dislikes);
         notifyDataSetChanged();
 
     }
@@ -113,16 +89,18 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             profileNameTv = itemView.findViewById(R.id.feedNameTv);
             profileImgView = itemView.findViewById(R.id.feedImageView);
             likeTv = itemView.findViewById(R.id.likeFeedTv);
+            likeTv.setVisibility(View.GONE);
             dislikeTv = itemView.findViewById(R.id.dislikeFeedTv);
+            dislikeTv.setVisibility(View.GONE);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-//                    int position = recyclerView.getChildLayoutPosition(view);
-//                    Intent intent = new Intent(context, YogaDisplayActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    intent.putExtra("profileInfo", (Serializable) profileModals.get(position));
-//                    context.startActivity(intent);
+                    int position = recyclerView.getChildLayoutPosition(view);
+                    Intent intent = new Intent(context, InterestedFeedActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("profileInfo", (Serializable) profileModals.get(position));
+                    context.startActivity(intent);
 
                 }
             });
