@@ -19,9 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cuddle">
         <activity
+            android:name=".ShowDetailActivity"
+            android:label="@string/title_activity_show_detail"
+            android:theme="@style/Theme.Cuddle.NoActionBar"></activity>
+        <activity
             android:name=".FeedActivity"
             android:label="@string/title_activity_feed"
-            android:theme="@style/Theme.Cuddle.NoActionBar"></activity>
+            android:theme="@style/Theme.Cuddle.NoActionBar" />
         <activity android:name=".InterestedFeedActivity" />
         <activity android:name=".CreateProfileActivity" />
         <activity android:name=".SignUpActivity" />

@@ -14,17 +14,17 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.bitaam.cuddle.ui.main.SectionsPagerAdapter;
-import com.bitaam.cuddle.databinding.ActivityFeedBinding;
+import com.bitaam.cuddle.databinding.ActivityShowDetailBinding;
 
-public class FeedActivity extends AppCompatActivity {
+public class ShowDetailActivity extends AppCompatActivity {
 
-    private ActivityFeedBinding binding;
+    private ActivityShowDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityFeedBinding.inflate(getLayoutInflater());
+        binding = ActivityShowDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -32,14 +32,6 @@ public class FeedActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = binding.fab;
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 }
